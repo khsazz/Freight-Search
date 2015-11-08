@@ -5,7 +5,7 @@
 <head>
 
  <meta charset="UTF-8" />
- <title>FFF</title>
+ <title>Freight Search</title>
  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
  <meta content="" name="description" />
  <meta content="" name="author" />
@@ -210,7 +210,7 @@
                 mapTypeId: google.maps.MapTypeId.TERRAIN
               });
 
-              var myLatLng = new google.maps.LatLng(23.430817,90.331516);
+              var myLatLng = new google.maps.LatLng(37.772,-122.214);
               var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 
                 var marker = new google.maps.Marker({
@@ -258,6 +258,74 @@
         
         <!-- Map end -->
 
+        <!-- Search Results Table -->
+
+        <!-- Search Results Panel -->
+
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class="panel panel-default" align="center">
+                  <div class="panel-heading"><h4>Search Results</h4></div>
+                  <!-- <div class="panel-body">Panel Content</div> -->
+                </div>        
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+
+        
+        <!-- Search Results Panel End-->
+
+        <div class="container">
+          <div class="table-responsive">          
+          <table class="table" align="center">
+            <thead>
+              <tr>
+                <th>
+                <h4>Option1 CIF</h4>
+                <h4>Place A - Place B - Place C -Place D - 100 Euro - 10 Days</h4>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                <h6>1 Day</h6>
+                <h6>Place A - Place B</h6>
+                <h6>Description</h6>
+                <h6><p class="text-right">1 Euro</p></h6>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <h6>8 Day</h6>
+                <h6>Place B - Place C</h6>
+                <h6>Description</h6>
+                <h6><p class="text-right">8 Euro</p></h6>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <h6>1 Day</h6>
+                <h6>Place C - Place D</h6>
+                <h6>Description</h6>
+                <h6><p class="text-right">1 Euro</p></h6>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <h3>
+                    <p class="text-right"><span class="label label-info">Total 10 Euro</span></p>
+                </h3>    
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <!-- Search Results Table End-->
+
         <!--END PAGE CONTENT -->
     </div>
     <!--END MAIN WRAPPER -->
@@ -276,7 +344,7 @@
     
     <!-- PAGE LEVEL SCRIPTS -->
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOUuK_T-LnuSRp0tl5vRYD26RftQEekg4&signed_in=true&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOUuK_T-LnuSRp0tl5vRYD26RftQEekg4&signed_in=false&callback=initMap"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
 
 </body>
