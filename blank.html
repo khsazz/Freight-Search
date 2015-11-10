@@ -25,6 +25,9 @@
         <!-- PAGE LEVEL STYLES -->
         <!-- END PAGE LEVEL  STYLES -->
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </head>
     <!-- END  HEAD-->
 
@@ -80,43 +83,86 @@
         </div>
 
         <!-- nav menu end-->
-        <div class="container">
+        <!-- <div class="container">
             <div class="row" align="center">
                 <form onsubmit="create_table()">
                     <button type="submit">Submit</button>
                 </form>
             </div>
         </div>
-
+ -->
         <div class="container">
             <div class="row" align="center" style="margin-top: 20px;">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-10">
                     <div id="tbl_display">
-                        <script type="text/javascript">
-                        for(var i=0; i<1; i++){
-                            document.write("<thead>");
-                              document.write("<tr>");
-                                document.write("<th>");
-                                document.write("<h4>Option1 CIF</h4>");
-                                document.write("<h4>Place A - Place B - Place C -Place D - 100 Euro - 10 Days</h4>");
-                                document.write("</th>");
-                              document.write("</tr>");
-                            document.write("</thead>");
-                            document.write("<tbody>");
-                              document.write("<tr>");
-                                document.write("<td>");
-                                document.write("<h6>1 Day</h6>");
-                                document.write("<h6>Place A - Place B</h6>");
-                                document.write("<h6>Description</h6>");
-                                document.write("<h6><p class="text-right">1 Euro</p></h6>");
-                                document.write("</td>");
-                              document.write("</tr>");
-                            document.write("</tbody>");
-                          document.write("</table>");
+                        <div>
+                                <div class="table-responsive">          
+                                  <table class="table" align="center">
+                                    <thead>
+                                    
+                                      <tr>
+                                        <th>
+                                        <div id="tbl_head">
+                                        
+                                        </div>
+                                        <!-- <h4>Option1 CIF</h4>
+                                        <h4>Place A - Place B - Place C -Place D - 100 Euro - 10 Days</h4> -->
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                        <h6>1 Day</h6>
+                                        <h6>Place A - Place B</h6>
+                                        <h6>Description</h6>
+                                        <h6><p class="text-right">1 Euro</p></h6>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                        <h6>8 Day</h6>
+                                        <h6>Place B - Place C</h6>
+                                        <h6>Description</h6>
+                                        <h6><p class="text-right">8 Euro</p></h6>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                        <h6>1 Day</h6>
+                                        <h6>Place C - Place D</h6>
+                                        <h6>Description</h6>
+                                        <h6><p class="text-right">1 Euro</p></h6>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                            <h3>
+                                            <p class="text-right"><span class="label label-info">Total 10 Euro</span></p>
+                                        </h3>    
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  </div>
+                                  </div>
+                    </div>   
+
+                    <script type="text/jsx">
+                    var tbl_head = React.createClass({
+                        render: function(){
+                            return 
+                            <div>
+                                        <h4>Option1 CIF</h4>
+                                    <h4>Place A - Place B - Place C -Place D - 100 Euro - 10 Days</h4>
+                                    </div>;
                         }
-                        </script>
-                    </div>    
+                    });
+
+                    React.render(<tbl_head/>, document.getElementById('tbl_head'));
+
+                    </script>
                 </div>
                 <div class="col-lg-1"></div>
                 
@@ -153,107 +199,107 @@
     
     <!-- PAGE LEVEL SCRIPTS -->
     
-    <script>
-    var created = false;
-    function create_table()
-    {
-        event.preventDefault();
-        if(created){
-            return;
-        }
+    // <script>
+    // var created = false;
+    // function create_table()
+    // {
+    //     event.preventDefault();
+    //     if(created){
+    //         return;
+    //     }
         
-     var tbl_display = document.getElementById("tbl_display");
-     var no_rows = 3;
-     var no_col = 1;
-     var tbl = document.createElement('table');
-     //checking and adding style
-     //checking which style is selected 
-        // if (document.table_form.bordered.checked){
-        //     tbl.setAttribute("class", "table table-bordered"); 
-        // }
-        // if (document.table_form.bordered.checked && document.table_form.striped.checked){
-        //     tbl.setAttribute("class", "table table-striped table-bordered"); 
-        // }
-        // if (document.table_form.bordered.checked && document.table_form.striped.checked && document.table_form.condensed.checked){
-        //     tbl.setAttribute("class", "table table-bordered table-striped table-condensed"); 
-        // }
-        // if (document.table_form.bordered.checked && document.table_form.condensed.checked){
-        //     tbl.setAttribute("class", "table table-bordered table-condensed"); 
-        // }
-        // if (document.table_form.striped.checked && document.table_form.condensed.checked){
-        //     tbl.setAttribute("class", "table table-striped table-condensed"); 
-        // }
-        // if (!document.table_form.striped.checked && !document.table_form.condensed.checked && !document.table_form.bordered.checked             ){
-        //     tbl.setAttribute("class", "table"); 
-        // }
-     var tblHead = document.createElement('thead');
-     tbl.appendChild(tblHead);
-     var tblrow = document.createElement("tr");
-     tblHead.appendChild(tblrow);
-     for(r=0; r< no_col; r++)
-     {
-      var tblHeadCell = document.createElement('th');
-      tblrow.appendChild(tblHeadCell);
-      var thText = document.createTextNode("th is "+r);
-      tblHeadCell.appendChild(thText);
-     }
-     var tblBody = document.createElement("tbody");
-     for (var p = 0; p < no_rows; p++) {
-            // creates a table row
-            var row = document.createElement("tr");
+    //  var tbl_display = document.getElementById("tbl_display");
+    //  var no_rows = 3;
+    //  var no_col = 1;
+    //  var tbl = document.createElement('table');
+    //  //checking and adding style
+    //  //checking which style is selected 
+    //     // if (document.table_form.bordered.checked){
+    //     //     tbl.setAttribute("class", "table table-bordered"); 
+    //     // }
+    //     // if (document.table_form.bordered.checked && document.table_form.striped.checked){
+    //     //     tbl.setAttribute("class", "table table-striped table-bordered"); 
+    //     // }
+    //     // if (document.table_form.bordered.checked && document.table_form.striped.checked && document.table_form.condensed.checked){
+    //     //     tbl.setAttribute("class", "table table-bordered table-striped table-condensed"); 
+    //     // }
+    //     // if (document.table_form.bordered.checked && document.table_form.condensed.checked){
+    //     //     tbl.setAttribute("class", "table table-bordered table-condensed"); 
+    //     // }
+    //     // if (document.table_form.striped.checked && document.table_form.condensed.checked){
+    //     //     tbl.setAttribute("class", "table table-striped table-condensed"); 
+    //     // }
+    //     // if (!document.table_form.striped.checked && !document.table_form.condensed.checked && !document.table_form.bordered.checked             ){
+    //     //     tbl.setAttribute("class", "table"); 
+    //     // }
+    //  var tblHead = document.createElement('thead');
+    //  tbl.appendChild(tblHead);
+    //  var tblrow = document.createElement("tr");
+    //  tblHead.appendChild(tblrow);
+    //  for(r=0; r< no_col; r++)
+    //  {
+    //   var tblHeadCell = document.createElement('th');
+    //   tblrow.appendChild(tblHeadCell);
+    //   var thText = document.createTextNode("th is "+r);
+    //   tblHeadCell.appendChild(thText);
+    //  }
+    //  var tblBody = document.createElement("tbody");
+    //  for (var p = 0; p < no_rows; p++) {
+    //         // creates a table row
+    //         var row = document.createElement("tr");
             
-            for (var q = 0; q < no_col; q++) {
-                // Create a <td> element and a text node, make the text
-                // node the contents of the <td>, and put the <td> at
-                // the end of the table row
-                var cell = document.createElement("td");
-                var cellText = document.createTextNode("cell is row"+p+", column "+q);
-                cell.appendChild(cellText);
-                row.appendChild(cell);
-            }
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
-        }
-        tbl.appendChild(tblBody);
-        //display table
-        tbl_display.appendChild(tbl);
-        //disable the submit button
-      // var submt = document.table_form.Submit;
-      // submt.setAttribute("disabled", "disabled");
-      created = true;
-      } 
-      function display_html()
-      {
-      var tbl_html = document.getElementById('tbl_display').innerHTML;
-      var htmlCode = document.createTextNode(tbl_html);
-      //alert(tbl_html);
-      var tbl_html_display = document.getElementById('html_code');
-      tbl_html_display.appendChild(htmlCode);
-      //disable generate html button
-      var gen_html = document.table_form.generate_html;
-      gen_html.setAttribute("disabled", "disabled");
-      }
-      </script>
+    //         for (var q = 0; q < no_col; q++) {
+    //             // Create a <td> element and a text node, make the text
+    //             // node the contents of the <td>, and put the <td> at
+    //             // the end of the table row
+    //             var cell = document.createElement("td");
+    //             var cellText = document.createTextNode("cell is row"+p+", column "+q);
+    //             cell.appendChild(cellText);
+    //             row.appendChild(cell);
+    //         }
+    //         // add the row to the end of the table body
+    //         tblBody.appendChild(row);
+    //     }
+    //     tbl.appendChild(tblBody);
+    //     //display table
+    //     tbl_display.appendChild(tbl);
+    //     //disable the submit button
+    //   // var submt = document.table_form.Submit;
+    //   // submt.setAttribute("disabled", "disabled");
+    //   created = true;
+    //   } 
+    //   function display_html()
+    //   {
+    //   var tbl_html = document.getElementById('tbl_display').innerHTML;
+    //   var htmlCode = document.createTextNode(tbl_html);
+    //   //alert(tbl_html);
+    //   var tbl_html_display = document.getElementById('html_code');
+    //   tbl_html_display.appendChild(htmlCode);
+    //   //disable generate html button
+    //   var gen_html = document.table_form.generate_html;
+    //   gen_html.setAttribute("disabled", "disabled");
+    //   }
+    //   </script>
 
-      <script type="text/javascript">
-      function freight(time, source, dest, cost, message){
-        this.time = time;
-        this.source = source;
-        this.dest= dest;
-        this.cost = cost;
-        this.message=message;
-      };
+    //   <script type="text/javascript">
+    //   function freight(time, source, dest, cost, message){
+    //     this.time = time;
+    //     this.source = source;
+    //     this.dest= dest;
+    //     this.cost = cost;
+    //     this.message=message;
+    //   };
 
-      var a = new freight(1, "A", "B", 1, "text");
-      var b = [ a,  new freight(10, "B", "C", 10, "text2"), new freight(1, "C", "D", 1, "text3") ];
-      var c = new Object();
-      var total_cost=0;
-      var total_time =0;
-      for(var i=0; i< b.length; i++){
-        total_time = total_time + b[i].time;
-        total_cost = total_cost + b[i].cost;
-      }
-      </script>
+    //   var a = new freight(1, "A", "B", 1, "text");
+    //   var b = [ a,  new freight(10, "B", "C", 10, "text2"), new freight(1, "C", "D", 1, "text3") ];
+    //   var c = new Object();
+    //   var total_cost=0;
+    //   var total_time =0;
+    //   for(var i=0; i< b.length; i++){
+    //     total_time = total_time + b[i].time;
+    //     total_cost = total_cost + b[i].cost;
+    //   }
+    //   </script>
 
     <!-- END PAGE LEVEL SCRIPTS -->
 
