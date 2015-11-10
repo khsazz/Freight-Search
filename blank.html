@@ -150,17 +150,19 @@
                     </div>   
 
                     <script type="text/jsx">
-                    var tbl_head = React.createClass({
+                    var Tbl_head = React.createClass({
                         render: function(){
-                            return 
-                            <div>
+                            return (
+                                              <div>
                                         <h4>Option1 CIF</h4>
                                     <h4>Place A - Place B - Place C -Place D - 100 Euro - 10 Days</h4>
-                                    </div>;
+                                    </div>
+                                );
+                                 
                         }
                     });
 
-                    React.render(<tbl_head/>, document.getElementById('tbl_head'));
+                    React.render(<Tbl_head/>, document.getElementById('tbl_head'));
 
                     </script>
                 </div>

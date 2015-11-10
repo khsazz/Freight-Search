@@ -1,0 +1,18 @@
+var data = [
+	{
+		place: "a",
+		lat: "37.772",
+		lng: "-122.214",
+		possiblepath: ["b","c","d"],
+		time: "1",
+		cost: "10"
+	},
+	{
+		place: "b",
+		lat: "37.772",
+		lng: "-122.214",
+		possiblepath: ["c","d"],
+		time: "2",
+		cost: "8"
+	}
+];
