@@ -2,6 +2,59 @@
  * Created by Sazz on 11/10/2015.
  */
 
+var places = [
+    {
+        placeID: 0,
+        lattitude: 59.3294,
+        longitude: 18.0686,
+        placeName: "Stockholm",
+        placeCode: "STO"
+    },
+    {
+        placeID: 1,
+        lattitude: 57.7000,
+        longitude: 11.9667,
+        placeName: "Gothenburg",
+        placeCode: "GOT"
+    },
+    {
+        placeID: 2,
+        lattitude: 26.1333,
+        longitude: 80.1500,
+        placeName: "Fort Lauderdale",
+        placeCode: "FTL"
+    },
+    {
+        placeID: 3,
+        lattitude: 28.4158,
+        longitude: 81.2989,
+        placeName: "Orlando",
+        placeCode: "ORL"
+    },
+    {
+        placeID: 4,
+        lattitude: 32.0167,
+        longitude: 81.1167,
+        placeName: "Savannah",
+        placeCode: "SVH"
+    },
+    {
+        placeID: 5,
+        lattitude: 51.9167,
+        longitude: 4.5000,
+        placeName: "Rotterdam",
+        placeCode: "ROT"
+    },
+];
+
+function getPlacebyID(ID){
+    for(var i=0; i<places.length; i++){
+        if(places[i].placeID === ID){
+            return places[i];
+        }
+    }
+};
+
 
 function Path(destination, cost, time, desc, source){
     this.sourcePlaceID = source;
@@ -11,16 +64,17 @@ function Path(destination, cost, time, desc, source){
     this.description = desc;
 };
 
-var adj_list = [ [new Path(3, 0, 0, "m", 0)],
-                 [new Path(3, 0, 0, "m", 1), new Path(4, 0, 0, "m", 1)],
-                    [new Path(4, 0, 0, "m", 2) ],
-                    [new Path(0, 0, 0, "m", 3), new Path(1, 0, 0, "m", 3), new Path(4, 0, 0, "m", 3)],
-                    [new Path(1, 0, 0, "m", 4), new Path(2, 0, 0, "m", 4), new Path(3, 0, 0, "m", 4)] ];
+var adj_list = [ [ new Path(1, 430, 1, "Road Transport", 0), new Path(5, 1430, 3, "Road Transport", 0)],
+                 [new Path(2, 1623, 22, "Ocean Freight", 1), new Path(4, 1765, 23, "Ocean Freight", 1), new Path(0, 430, 1, "Road Transport", 1)],
+                    [new Path(3, 600, 1, "Road Transport", 2), new Path(1, 1623, 22, "Ocean Freight", 2), new Path(5, 1623, 18, "Ocean Freight", 2)],
+                    [new Path(2, 600, 1, "Road Transport", 3), new Path(4, 600, 1, "Road Transport", 3)],
+                    [new Path(3, 600, 1, "Road Transport", 4), new Path(1, 1765, 23, "Ocean Freight", 4)],
+                        [new Path(2, 1623, 18, "Ocean Freight", 5) , new Path(0, 1430, 3, "Road Transport", 5)]];
 
 
 
-var visited =[false, false, false, false, false, false];
-var target = 2;
+var visited =[false, false, false, false, false, false, false];
+var target = 0;
 var stack = [];
 var start = 0;
 var possiblePaths = new Array();
@@ -60,7 +114,7 @@ function dfs(currentNode){
     }
 };
 
-dfs(0);
+//dfs(3);
 
 function generatePaths(){
     for(var i = 0; i<possiblePaths.length; i++){
@@ -78,12 +132,51 @@ function generatePaths(){
     }
 };
 
-generatePaths();
+//generatePaths();
 
-for(var i=0; i< allUniquePaths.length; i++){
-    for(var j=0; j<allUniquePaths[i].length; j++){
-        console.log(allUniquePaths[i][j].sourcePlaceID+" -> "+allUniquePaths[i][j].destPlaceID);
+function logAllPaths(){
+    for(var i=0; i< allUniquePaths.length; i++){
+        console.log("Path "+ (i+1));
+        for(var j=0; j<allUniquePaths[i].length; j++){
+
+            var a = allUniquePaths[i][j].sourcePlaceID;
+            var b = allUniquePaths[i][j].destPlaceID;
+            console.log(places[a].placeCode+" -> "+places[b].placeCode);
+        }
     }
 }
+
+function findPath(source, destination){
+    var s = false; var d= false;
+    for( var i =0; i< places.length; i++){
+        if(!s){
+            if(places[i].placeCode === source){
+                s= true;
+                start = places[i].placeID;
+            }
+        }
+        if(!d){
+            if(places[i].placeCode === destination){
+                d= true;
+                target = places[i].placeID;
+            }
+        }
+    }
+    if(s && d){
+        dfs(start);
+        generatePaths();
+        //logAllPaths();
+        return allUniquePaths;
+    }
+    else{
+        //console.log("Source or Destination not available");
+        alert("Source or Destination not available");
+        return false;
+    }
+}
+
+//findPath( "GOT", "STO");
+
+
 
 

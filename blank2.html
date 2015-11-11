@@ -30,6 +30,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="path.js"></script>
 </head>
 <!-- END  HEAD-->
 
@@ -159,7 +160,8 @@
 
                 <script type="text/babel">
 
-
+                    var paths = findPath( "GOT", "STO");
+                    
                     var Head_text = React.createClass({
                         render: function () {
                             return (
@@ -181,52 +183,9 @@
                             return (
                                     < div
                             className = "panel-heading" >
-                                    < h3 > Option1
-                            CIF < / h3 >
-                            < h3 > Place
-                            A - Place
-                            B - Place
-                            C - Place
-                            D - 100
-                            Euro - 10
-                            Days < / h3 >
+                                    < h4 > Option1 CIF < / h4 >
+                            < h4 > {this.props.data} FROM {this.props.cost} Euro AND {this.props.time} Days < / h4 >
                             < / div >
-                            )
-                            ;
-                        }
-                    });
-
-
-
-
-                    var Start = React.createClass({
-
-                        render: function () {
-                            return (
-
-
-                                    < div
-                            className = "panel panel-primary" >
-                                    < Panel_heading / >
-                                    < Panel_Body / >
-                                    < Panel_footer / >
-                                    < / div >
-                            )
-                            ;
-                        }
-                    });
-
-                    var Panel_Body = React.createClass({
-                        render: function () {
-                            return (
-                                    < div
-                            className = "panel-body" >
-
-                                    < ul
-                            className = "list-group" >
-                                    < List_item / >
-                                    < / ul >
-                                    < / div >
                             )
                             ;
                         }
@@ -239,9 +198,8 @@
                             className = "panel-footer" >
                                     < p
                             className = "text-right" > < span
-                            className = "label label-info" > Total
-                            10
-                            Euro < / span > < / p >
+                            className = "label label-info" > 
+                            Total {this.props.text} Euro < / span > < / p >
                             < / div >
                             )
                             ;
@@ -249,23 +207,74 @@
                     });
 
                     var List_item = React.createClass({
+
+                        
                         render: function () {
+                            var PlaceA = getPlacebyID(this.props.data.sourcePlaceID);
+                            var PlaceB = getPlacebyID(this.props.data.destPlaceID);
                             return (
-                                    < li
-                            className = "list-group-item" > < p > 1
-                            Day < / p > < p > Place
-                            A - Place
-                            B < / p > < p > Description < / p > < p
-                            className = "text-right" > 1
-                            Euro < / p > < / li >
+                                    < li className = "list-group-item" >
+                                    < p > {this.props.data.time} Day < / p > < p > {PlaceA.placeCode} - {PlaceB.placeCode} < / p > < p > {this.props.data.description} < / p >
+                                    < p className = "text-right" > {this.props.data.cost} Euro < / p >
+                                    < / li >
+                            );
+                        }
+                    });
+
+                    var Panel_Body = React.createClass({
+
+                        
+                        render: function () {
+                            var Item =this.props.data.map(function(list){
+                                return(<List_item key={list.destPlaceID} data={list}></List_item>);
+                            }); 
 
 
+                            return (
+                                    < div className = "panel-body" >
+                                    < ul className = "list-group" >
+                                        {Item}
+                                    < / ul >
+                                    < / div >
                             )
                             ;
                         }
                     });
 
-                    ReactDOM.render( < div > < Start / > < Start / > < / div >, document.getElementById('tbl_display2'));
+                    var Start = React.createClass({
+
+                        render: function () {
+
+                            var TotalCost = 0; var TotalTime = 0; var HeadLine = getPlacebyID(this.props.data[0].sourcePlaceID).placeCode;
+                            var CostFunction = this.props.data.map(function(list){
+                                TotalCost = TotalCost + list.cost;
+                                TotalTime = TotalTime + list.time;
+                                HeadLine = HeadLine + " - "+ getPlacebyID(list.destPlaceID).placeCode;
+                            }); 
+
+                            return (
+
+                                                < div className = "panel panel-primary" >
+                                                < Panel_heading data={HeadLine} cost={TotalCost} time={TotalTime} / >
+                                                < Panel_Body data= {this.props.data}/ >
+                                                < Panel_footer text={TotalCost} / >
+                                                < / div >
+                                        )
+
+                        }
+                    });
+
+
+//                    alert(paths.length);
+
+                    var hNodes = paths.map(function(i){
+                        return(
+                                <Start key={i} data= {i} />
+                        );
+                    });
+
+
+                    ReactDOM.render( < div > {hNodes} < / div >, document.getElementById('tbl_display2'));
 
                 </script>
 

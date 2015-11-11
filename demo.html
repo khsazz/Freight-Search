@@ -26,6 +26,13 @@
         <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
         <!-- END PAGE LEVEL  STYLES -->
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+        <script src="path.js"></script>
+
     </head>
     <!-- END  HEAD-->
 
@@ -129,7 +136,7 @@
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
-                <form class="form-inline" role="form" onsubmit="search_function()">
+                <form class="form-inline" role="form" onsubmit="Search_function()">
                     <div class="col-lg-3">
                         <div class="row">
                             <div class="form-group">
@@ -177,11 +184,6 @@
         <div class="row" align="center" style="margin-top: 50px;">
             <div class="hidden" id="map-container" style="height: 400px; width: 800px;"></div>
  
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
         
         </div>
         
@@ -190,73 +192,24 @@
         <!-- ----------------------------------------------- -->
         <!-- ----------------------------------------------- -->
 
-        <!-- Search Results Table -->
+        <!-- Search Result List -->
 
-        <!-- Search Results Panel -->
-
-        <div class="row hidden" id="hidden1">
+    <div class="container">
+        <div class="row hidden" id="hidden1" align="left" style="margin-top: 20px;">
             <div class="col-lg-1"></div>
             <div class="col-lg-10">
-                <div class="panel panel-default" align="center">
-                  <div class="panel-heading"><h4>Search Results</h4></div>
-                  <!-- <div class="panel-body">Panel Content</div> -->
-                </div>        
+
+
+                <div id="tbl_display2">
+                </div>
+
             </div>
+
             <div class="col-lg-1"></div>
+
         </div>
-
-        
-        <!-- Search Results Panel End-->
-
-        <div class="container hidden" id="hidden2">
-          <div class="table-responsive">          
-          <table class="table" align="center">
-            <thead>
-              <tr>
-                <th>
-                <h4>Option1 CIF</h4>
-                <h4>Place A - Place B - Place C -Place D - 100 Euro - 10 Days</h4>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                <h6>1 Day</h6>
-                <h6>Place A - Place B</h6>
-                <h6>Description</h6>
-                <h6><p class="text-right">1 Euro</p></h6>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                <h6>8 Day</h6>
-                <h6>Place B - Place C</h6>
-                <h6>Description</h6>
-                <h6><p class="text-right">8 Euro</p></h6>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                <h6>1 Day</h6>
-                <h6>Place C - Place D</h6>
-                <h6>Description</h6>
-                <h6><p class="text-right">1 Euro</p></h6>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                    <h3>
-                    <p class="text-right"><span class="label label-info">Total 10 Euro</span></p>
-                </h3>    
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          </div>
-        </div>
-
-        <!-- Search Results Table End-->
+    </div>
+    <!-- Search Result List END-->
 
         <!--END PAGE CONTENT -->
     </div>
@@ -278,6 +231,11 @@
     <script src="assets/plugins/jquery-2.0.3.min.js"></script>
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        
     <!-- END GLOBAL SCRIPTS -->
     
     <!-- PAGE LEVEL SCRIPTS -->
@@ -335,21 +293,139 @@
         }
      
         </script>
-    
+        <script type="text/javascript">
+                    var from="STO", to="ORL";
+                    var paths = findPath( from, to); 
+                    // var paths;
+                    function Search_function(){
+                        event.preventDefault();
+                        // from = document.forms[0].from.value;
+                        // to = document.forms[0].to.value;
+                        // paths = findPath( from, to); 
+                        StartRendering();
+                        // ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));
+                        $("#hidden1").removeClass('hidden');
+                        // SearchRoute();
+                        $("#map-container").removeClass('hidden');
+                        initMap();
+                        alert(from+" - "+to);
+                    };
+        </script>
+        
+        <script type="text/babel">
+                    
+                    
+                    // var From = "STO";
+                    // var To = "ORL";
+                    
+                    
 
-    <script type="text/javascript">
-    var from, to;
-    function search_function(){
-        event.preventDefault();
-        $("#hidden1").removeClass('hidden');
-        $("#hidden2").removeClass('hidden');
-        $("#map-container").removeClass('hidden');
-        initMap();
-        from = document.forms[0].from.value;
-        to = document.forms[0].to.value;
-        alert(from+" - "+to);
-    };
-    </script>
+                    var Panel_heading = React.createClass({
+                        render: function () {
+                            return (
+                                    < div className = "panel-heading" >
+                                    < h4 > Option1 CIF < / h4 >
+                            < h4 > {this.props.data} FROM {this.props.cost} Euro AND {this.props.time} Days < / h4 >
+                            < / div >
+                            )
+                            ;
+                        }
+                    });
+
+                    var Panel_footer = React.createClass({
+                        render: function () {
+                            return (
+                                    < div
+                            className = "panel-footer" >
+                                    < p
+                            className = "text-right" > < span
+                            className = "label label-info" > 
+                            Total {this.props.text} Euro < / span > < / p >
+                            < / div >
+                            )
+                            ;
+                        }
+                    });
+
+                    var List_item = React.createClass({
+
+                        
+                        render: function () {
+                            var PlaceA = getPlacebyID(this.props.data.sourcePlaceID);
+                            var PlaceB = getPlacebyID(this.props.data.destPlaceID);
+                            return (
+                                    < li className = "list-group-item" >
+                                    < p > {this.props.data.time} Day < / p > < p > {PlaceA.placeCode} - {PlaceB.placeCode} < / p > < p > {this.props.data.description} < / p >
+                                    < p className = "text-right" > {this.props.data.cost} Euro < / p >
+                                    < / li >
+                            );
+                        }
+                    });
+
+                    var Panel_Body = React.createClass({
+
+                        
+                        render: function () {
+                            var Item =this.props.data.map(function(list){
+                                return(<List_item key={list.destPlaceID} data={list}></List_item>);
+                            }); 
+
+
+                            return (
+                                    < div className = "panel-body" >
+                                    < ul className = "list-group" >
+                                        {Item}
+                                    < / ul >
+                                    < / div >
+                            )
+                            ;
+                        }
+                    });
+
+                    var Start = React.createClass({
+
+                        render: function () {
+
+                            var TotalCost = 0; var TotalTime = 0; var HeadLine = getPlacebyID(this.props.data[0].sourcePlaceID).placeCode;
+                            var CostFunction = this.props.data.map(function(list){
+                                TotalCost = TotalCost + list.cost;
+                                TotalTime = TotalTime + list.time;
+                                HeadLine = HeadLine + " - "+ getPlacebyID(list.destPlaceID).placeCode;
+                            }); 
+
+                            return (
+
+                                                < div className = "panel panel-primary" >
+                                                < Panel_heading data={HeadLine} cost={TotalCost} time={TotalTime} / >
+                                                < Panel_Body data= {this.props.data}/ >
+                                                < Panel_footer text={TotalCost} / >
+                                                < / div >
+                                        )
+
+                        }
+                    });
+
+
+                    var Nodes = React.createClass({
+                        render : function(){
+                            var c= this.props.data.map(function(i){
+                                return (<Start key={i} data= {i} />);
+                            });
+                            return(
+                                <div>{c}</div>
+                                );
+                            }
+                        });
+                    
+                    // ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));
+                    
+                    var StartRendering = function(){
+                        ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));    
+                    }
+        
+        </script>    
+
+            
 
     <!-- END PAGE LEVEL SCRIPTS -->
 
