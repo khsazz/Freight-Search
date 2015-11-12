@@ -20,21 +20,21 @@ var places = [
     {
         placeID: 2,
         lattitude: 26.1333,
-        longitude: 80.1500,
+        longitude: -80.1500,
         placeName: "Fort Lauderdale",
         placeCode: "FTL"
     },
     {
         placeID: 3,
         lattitude: 28.4158,
-        longitude: 81.2989,
+        longitude: -81.2989,
         placeName: "Orlando",
         placeCode: "ORL"
     },
     {
         placeID: 4,
         lattitude: 32.0167,
-        longitude: 81.1167,
+        longitude: -81.1167,
         placeName: "Savannah",
         placeCode: "SVH"
     },
@@ -175,7 +175,11 @@ function findPath(source, destination){
     }
 }
 
-//findPath( "GOT", "STO");
+function getMapRoutes(){
+    return possiblePaths;
+}
+
+//findPath( "STO", "ORL");
 
 
 

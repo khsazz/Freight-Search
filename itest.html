@@ -24,13 +24,9 @@
 
         <!-- PAGE LEVEL STYLES -->
         <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-        <!-- END PAGE LEVEL  STYLES -->
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-dom.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+
         <script src="path.js"></script>
 
     </head>
@@ -199,11 +195,28 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-10">
 
-                <!-- <div id="everything"> -->
-                    <div id="tbl_display2">
-                </div>    
-                <!-- </div> -->
-                
+
+                <div id="tbl_display2">
+					<div class = "panel panel-primary">
+						<div class = "panel-heading">
+							<h4> Option1 CIF </h4>
+							<h4></h4>
+						</div>
+						<div class = "panel-body">
+							<ul class = "list-group" id="showlist">
+								
+							</ul>
+						</div>
+						
+						<div class = "panel-footer">
+                            <p class = "text-right">
+								<span class = "label label-info"> 
+
+								</span>
+							</p>
+                        </div>
+					</div>
+                </div>
 
             </div>
 
@@ -244,11 +257,11 @@
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOUuK_T-LnuSRp0tl5vRYD26RftQEekg4&signed_in=false&callback=initMap"></script>
 
-    <script>    
-          function initMap(mapRoutes) {
+    <script type="text/javascript"> 
+          function initMap() {
               var map = new google.maps.Map(document.getElementById('map-container'), {
                 zoom: 3,
-                center: {lat: 45, lng: 0},
+                center: {lat: 0, lng: -180},
                 mapTypeId: google.maps.MapTypeId.TERRAIN
               });
 
@@ -262,239 +275,66 @@
                 });
                 marker.setMap(map);
 
-            var flightPlanCoordinates;
-            var allFlightPlans = new Array();
+              var flightPlanCoordinates1 = [
+                {lat: 37.772, lng: -122.214},
+                {lat: 21.291, lng: -157.821},
+                {lat: -18.142, lng: 178.431},
+                {lat: -27.467, lng: 153.027}
+              ];
 
-            function flightPlanCoordinate(lat, lng){
-                this.lat = lat;
-                this.lng = lng;
-            }
+              var flightPlanCoordinates2 = [
+                {lat: 37.772, lng: -132.214},
+                {lat: 21.291, lng: -187.821}
+              ];
 
-            for(var i=0; i<mapRoutes.length; i++){
-                var flightPlanCoordinates = new Array();
-                for(var j=0; j<mapRoutes[i].length; j++){
-                    var place = mapRoutes[i][j];
-                    var coordinate = new flightPlanCoordinate(places[place].lattitude, places[place].longitude);
-                    flightPlanCoordinates.push(coordinate);
-                }
-                allFlightPlans.push(flightPlanCoordinates);
-            }
-
-              // var flightPlanCoordinates1 = [
-              //   {lat: 37.772, lng: -122.214},
-              //   {lat: 21.291, lng: -157.821},
-              //   {lat: -18.142, lng: 178.431},
-              //   {lat: -27.467, lng: 153.027}
-              // ];
-
-              // var flightPlanCoordinates2 = [
-              //   {lat: 37.772, lng: -132.214},
-              //   {lat: 21.291, lng: -187.821}
-              // ];
-
-              var colors = [ "blue", "black", "white", "red", "green" ];
-
-              function makeFlightPath(flightPlanCoordinates, stroke){
-                var flightPath = new google.maps.Polyline({
-                path: flightPlanCoordinates,
+              var flightPath1 = new google.maps.Polyline({
+                path: flightPlanCoordinates1,
                 geodesic: true,
-                strokeColor: stroke,
+                strokeColor: '#FF0000',
                 strokeOpacity: 1.0,
-                strokeWeight: 4
-                });   
-                flightPath.setMap(map);             
-              }
+                strokeWeight: 2
+              });
 
-              for(var i=0; i<allFlightPlans.length; i++){
-                makeFlightPath(allFlightPlans[i], colors[i]);
-              }
-              // var flightPath1 = new google.maps.Polyline({
-              //   path: flightPlanCoordinates1,
-              //   geodesic: true,
-              //   strokeColor: '#FF0000',
-              //   strokeOpacity: 1.0,
-              //   strokeWeight: 2
-              // });
+              var flightPath2 = new google.maps.Polyline({
+                path: flightPlanCoordinates2,
+                geodesic: true,
+                strokeColor: '#FF0F00',
+                strokeOpacity: 1.0,
+                strokeWeight: 3
+              });
 
-              // var flightPath2 = new google.maps.Polyline({
-              //   path: flightPlanCoordinates2,
-              //   geodesic: true,
-              //   strokeColor: '#FF0F00',
-              //   strokeOpacity: 1.0,
-              //   strokeWeight: 3
-              // });
-
-              // flightPath1.setMap(map);
-              // flightPath2.setMap(map);
+              flightPath1.setMap(map);
+              flightPath2.setMap(map);
         }
      
-        </script>
-        <script type="text/javascript">
-                    var firstTime = true;
                     var from="STO", to="ORL";
-                    // var paths = findPath( from, to); 
-                    var paths;
-                    var mapRoutes;
+                    var paths = findPath( from, to); 
+                    // var paths;
                     function Search_function(){
-                        if(firstTime){
-                            event.preventDefault();    
-                        }
-                        
-                        from = document.forms[0].from.value;
-                        to = document.forms[0].to.value;
-                        paths = findPath( from, to); 
-                        mapRoutes = getMapRoutes();
+                        event.preventDefault();
+                        // from = document.forms[0].from.value;
+                        // to = document.forms[0].to.value;
+                        // paths = findPath( from, to); 
                         // StartRendering();
                         // ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));
                         $("#hidden1").removeClass('hidden');
                         // SearchRoute();
                         $("#map-container").removeClass('hidden');
-                        initMap(mapRoutes);
+                        //initMap();
                         alert(from+" - "+to);
-                        // addElemnt();
+						addElemnt();
                     };
-
-                    // function addElemnt(){
-                    // $("#everything").remove();
-                    //     $("#everything").append(
-                    //         '<div id="tbl_display2"></div>'
-                    //     );
-                    // }
-        </script>
-        
-        <script type="text/babel">
-                    
                     
                     // var From = "STO";
                     // var To = "ORL";
+					
+					function addElemnt(){
+					$("#showlist").remove();
+						$("#showlist").append(
+							'<li class = "list-group-item" ng-repeat="d in data">'+from+'</li>'
+						);
+					}
                     
-                    
-
-                    var Panel_heading = React.createClass({
-                        render: function () {
-                            return (
-                                    < div className = "panel-heading" >
-                                    < h4 > Option1 CIF < / h4 >
-                            < h4 > {this.props.data} FROM {this.props.cost} Euro AND {this.props.time} Days < / h4 >
-                            < / div >
-                            )
-                            ;
-                        }
-                    });
-
-                    var Panel_footer = React.createClass({
-                        render: function () {
-                            return (
-                                    < div
-                            className = "panel-footer" >
-                                    < p
-                            className = "text-right" > < span
-                            className = "label label-info" > 
-                            Total {this.props.text} Euro < / span > < / p >
-                            < / div >
-                            )
-                            ;
-                        }
-                    });
-
-                    var List_item = React.createClass({
-
-                        
-                        render: function () {
-                            var PlaceA = getPlacebyID(this.props.data.sourcePlaceID);
-                            var PlaceB = getPlacebyID(this.props.data.destPlaceID);
-                            return (
-                                    < li className = "list-group-item" >
-                                    < p > {this.props.data.time} Day < / p > < p > {PlaceA.placeCode} - {PlaceB.placeCode} < / p > < p > {this.props.data.description} < / p >
-                                    < p className = "text-right" > {this.props.data.cost} Euro < / p >
-                                    < / li >
-                            );
-                        }
-                    });
-
-                    var Panel_Body = React.createClass({
-
-                        
-                        render: function () {
-                            var Item =this.props.data.map(function(list){
-                                return(<List_item key={list.destPlaceID} data={list}></List_item>);
-                            }); 
-
-
-                            return (
-                                    < div className = "panel-body" >
-                                    < ul className = "list-group" >
-                                        {Item}
-                                    < / ul >
-                                    < / div >
-                            )
-                            ;
-                        }
-                    });
-
-                    var Start = React.createClass({
-
-                        render: function () {
-
-                            var TotalCost = 0; var TotalTime = 0; var HeadLine = getPlacebyID(this.props.data[0].sourcePlaceID).placeCode;
-                            var CostFunction = this.props.data.map(function(list){
-                                TotalCost = TotalCost + list.cost;
-                                TotalTime = TotalTime + list.time;
-                                HeadLine = HeadLine + " - "+ getPlacebyID(list.destPlaceID).placeCode;
-                            }); 
-
-                            return (
-
-                                                < div className = "panel panel-primary" >
-                                                < Panel_heading data={HeadLine} cost={TotalCost} time={TotalTime} / >
-                                                < Panel_Body data= {this.props.data}/ >
-                                                < Panel_footer text={TotalCost} / >
-                                                < / div >
-                                        )
-
-                        }
-                    });
-
-
-                    var Nodes = React.createClass({
-
-                        getInitialState: function() {
-                            return {data: []};
-                          },
-
-
-                        render : function(){
-                            var z=1;
-                            var c= this.props.data.map(function(i){
-                                return (<Start key={z++} data= {i} />);
-                            });
-                            return(
-                                <div >{c}</div>
-                                );
-                            }
-                        });
-                    
-                    // ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));
-                    
-                    // if(paths !== false){
-                    //     ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));    
-                    // }
-                    // else{
-                    //     alert("No rendering");
-                    // }
-
-                    setInterval(function() {
-                          ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));
-                        }, 500);
-
-                    // function StartRendering(){
-                    //     ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));    
-                    // };
-
-                    // var StartRendering = function(){
-                    //     ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));    
-                    // }
-        
         </script>    
 
             
