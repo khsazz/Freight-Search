@@ -337,12 +337,17 @@
                     var mapRoutes;
                     function Search_function(){
                         if(firstTime){
-                            event.preventDefault();    
+                            event.preventDefault();
+                            firstTime = false;    
                         }
+
                         
                         from = document.forms[0].from.value;
                         to = document.forms[0].to.value;
                         paths = findPath( from, to); 
+                        if(!paths){
+                            return;
+                        }
                         mapRoutes = getMapRoutes();
                         // StartRendering();
                         // ReactDOM.render(<Nodes data={paths}/> , document.getElementById('tbl_display2'));
@@ -350,7 +355,7 @@
                         // SearchRoute();
                         $("#map-container").removeClass('hidden');
                         initMap(mapRoutes);
-                        alert(from+" - "+to);
+                        // alert(from+" - "+to);
                         // addElemnt();
                     };
 
